@@ -14,6 +14,8 @@ import os
 
 from sqlalchemy import create_engine
 
+from sqlalchemy.orm import relationship
+
 import pandas as pd
 import numpy as np
 
@@ -61,6 +63,13 @@ class Accounts(db.Model):
     Country = db.Column(db.String(50), nullable=False)
     City = db.Column(db.String(50))
     Timezone = db.Column(db.String(50))
+
+#Leads Model
+class Leads(db.Model):
+    __tablename__ = 'Leads'
+    LeadID = db.Column(db.Integer, primary_key=True)
+    AccountID = db.Column(db.Integer, db.ForeignKey('Accounts.AccountID'))
+    
     
 # Clients model
 class Clients(db.Model):
