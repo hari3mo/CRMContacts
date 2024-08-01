@@ -125,6 +125,14 @@ class AccountForm(FlaskForm):
     
     # email = EmailField('Email:', validators=[DataRequired(), Email()])
 
+#Leads form (InProgress) 7/31
+class LeadForm(FlaskForm):
+    FirstName = StringField('First Name:')
+    LastName = StringField('Last Name:')
+    Title = StringField('Title')
+    submit = SubmitField('Submit')
+
+
 # User form
 class UserForm(FlaskForm):
     email = EmailField('Email:', validators=[DataRequired(), Email()])
@@ -167,6 +175,23 @@ def clear_opportunities():
     flash('Opportunities list cleared.')
     return redirect(url_for('accounts_list'))
     
+
+##############################################################################
+
+#leads 7/31
+@app.route('/new_leads/', methods=['GET', 'POST'])
+def new_leads():
+
+        form = LeadForm()
+
+        ###sumbit logic here 
+        ###flash('Account added successfully.')
+        return render_template('new_leads.html', form=form)
+        
+
+#############################################################################
+
+
 
 
 # New opportunity
