@@ -69,7 +69,15 @@ class Leads(db.Model):
     __tablename__ = 'Leads'
     LeadID = db.Column(db.Integer, primary_key=True)
     AccountID = db.Column(db.Integer, db.ForeignKey('Accounts.AccountID'))
-    
+    Position = db.Column(db.String(75))
+    FirstName = db.Column(db.String(50))
+    LastName = db.Column(db.String(50))
+    Email = db.Column(db.String(50))
+    CompanyName = db.Column(db.String(100))
+    DateCreated = db.Column(db.Date, default=datetime.datetime.now(datetime.timezone.utc))
+    DateModified = db.Column(db.Date, datetime.utcnow())
+
+
     
 # Clients model
 class Clients(db.Model):
