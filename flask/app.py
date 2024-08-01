@@ -75,7 +75,7 @@ class Leads(db.Model):
     Email = db.Column(db.String(50))
     CompanyName = db.Column(db.String(100))
     DateCreated = db.Column(db.Date, default=datetime.datetime.now(datetime.timezone.utc))
-    DateModified = db.Column(db.Date, datetime.utcnow())
+    DateModified = db.Column(db.Date, default=datetime.datetime.now(datetime.timezone.utc))
 
 
     
@@ -144,7 +144,7 @@ class AccountForm(FlaskForm):
 
 #Leads form (InProgress) 7/31
 class LeadForm(FlaskForm):
-    FirstName = StringField('First Name:')
+    FirstName = StringField('First Name:', validators=[DataRequired()])
     LastName = StringField('Last Name:')
     Title = StringField('Title')
     submit = SubmitField('Submit')
@@ -201,9 +201,16 @@ def new_leads():
 
         form = LeadForm()
 
+        FirstName = None
+        LastName = None
+        Title = None
         ###sumbit logic here 
-        ###flash('Account added successfully.')
-        return render_template('new_leads.html', form=form)
+        if form.validate_on_submit():
+            FirstName = form.FirstName.data
+            LastName = form.LastName.data
+            Title = form.Title.data
+            flash('Leads added successfully.')
+        return render_template('new_leads.html', FirstName = FirstName, LastName = LastName, Title = Title, form=form)
         
 
 #############################################################################
