@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, session, f
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from flask_migrate import Migrate
-from wtforms import StringField, SubmitField, PasswordField, EmailField, IntegerField, FileField, BooleanField, ValidationError
+from wtforms import SelectField, StringField, SubmitField, PasswordField, EmailField, IntegerField, FileField, BooleanField, ValidationError
 from flask_wtf.file import FileRequired
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -144,6 +144,7 @@ class AccountForm(FlaskForm):
 
 #Leads form (InProgress) 7/31
 class LeadForm(FlaskForm):
+    Company_Name = SelectField('Company Name:', choices= ['Edison', 'Honda'])
     FirstName = StringField('First Name:', validators=[DataRequired()])
     LastName = StringField('Last Name:')
     Title = StringField('Title')
@@ -200,7 +201,8 @@ def clear_opportunities():
 def new_leads():
 
         form = LeadForm()
-
+        choices = None #new will update
+        Company_Name = None #new will update
         FirstName = None
         LastName = None
         Title = None
@@ -210,7 +212,7 @@ def new_leads():
             LastName = form.LastName.data
             Title = form.Title.data
             flash('Leads added successfully.')
-        return render_template('new_leads.html', FirstName = FirstName, LastName = LastName, Title = Title, form=form)
+        return render_template('new_leads.html', Company_Name = choices, FirstName = FirstName, LastName = LastName, Title = Title, form=form)
         
 
 #############################################################################

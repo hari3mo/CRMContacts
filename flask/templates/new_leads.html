@@ -20,6 +20,8 @@
 <form method="POST">
     {{ form.hidden_tag() }}
 
+        {{ form.Company_Name.label(class="form-label" )}}
+        <p>{{ form.Company_Name(class="form-select") }}</p>
 
         {{ form.FirstName.label(class="form-label" )}}
         <p>{{ form.FirstName(class="form-control") }}</p>
