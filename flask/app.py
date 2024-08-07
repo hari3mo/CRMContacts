@@ -25,7 +25,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'key'
 
 # MySQL Database Connection
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://erpcrm:Erpcrmpass1!@aws-erp.cxugcosgcicf.us-east-2.rds.amazonaws.com:3306/erpcrmdb' 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://erpcrm:Erpcrmpass1!@erpcrmdb.cfg0ok8iismy.us-west-1.rds.amazonaws.com' 
 
 # Uploads folder
 app.config['UPLOAD_FOLDER'] = 'static/files'
@@ -40,7 +40,7 @@ app.permanent_session_lifetime = timedelta(minutes=30)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 mydb = mysql.connector.connect(
-    host = 'aws-erp.cxugcosgcicf.us-east-2.rds.amazonaws.com',
+    host = 'erpcrmdb.cfg0ok8iismy.us-west-1.rds.amazonaws.com',
     user = 'erpcrm', 
     passwd = 'Erpcrmpass1!',
     database = 'erpcrmdb'
@@ -214,9 +214,13 @@ def new_leads():
             flash('Leads added successfully.')
         return render_template('new_leads.html', Company_Name = choices, FirstName = FirstName, LastName = LastName, Title = Title, form=form)
         
+@app.route('/leads_import', methods=['GET', 'POST'])
+def leads_import():
+    form = FileForm()
+    return render_template('leads_import.html', form=form)
+
 
 #############################################################################
-
 
 
 

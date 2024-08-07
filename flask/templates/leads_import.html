@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Leads Import{% endblock %}
+
+{% block content %}
+<!---7/31--->
+<!-- Flashed message -->
+{% for message in get_flashed_messages() %}
+    <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+
+<a class="btn btn-secondary btn-lg" href="{{ url_for('leads')}}" role="button">Back</a>
+<h2 class="text-center"><strong>Lead Import</strong></h2>
+<br>
+<div class="shadow p-3 mb-5 bg-body-tertiary rounded">
+
+
+<form method="POST" enctype='multipart/form-data'>
+    {{form.hidden_tag()}}
+    {{form.file()}}
+    {{form.submit}}
+
+</div>
+
+{% endblock %}
