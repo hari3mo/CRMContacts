@@ -217,8 +217,15 @@ def new_leads():
 @app.route('/leads_import', methods=['GET', 'POST'])
 def leads_import():
     form = FileForm()
+    if form.validate_on_submit():
+        file = form.file.data #first it grabs the file
+        file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'], secure_filename(file.filename))) #it saves in into file
+        flash('File Uploaded successfully.')
     return render_template('leads_import.html', form=form)
 
+@app.route('/leads_list', methods = ['GET', 'POST'])
+def leads_list():
+    return render_template('leads_list.html')
 
 #############################################################################
 
